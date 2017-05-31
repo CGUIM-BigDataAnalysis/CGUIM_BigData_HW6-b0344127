@@ -1,0 +1,7 @@
+"0","library(readxl)"
+"0","Finance_RPT_02_2_2 <- read_excel(""C:/Users/JHIH-CHEN/Downloads/university/Finance_RPT_02_2_2.xlsx"")"
+"0","View(Finance_RPT_02_2_2)"
+"0","Finance_RPT_02_2_3 <- read_excel(""C:/Users/JHIH-CHEN/Downloads/university/Finance_RPT_02_2_3.xlsx"")"
+"0","View(Finance_RPT_02_2_3)"
+"0","Finance_RPT_02_2_4 <- read_excel(""C:/Users/JHIH-CHEN/Downloads/university/Finance_RPT_02_2_4.xlsx"")"
+"0","View(Finance_RPT_02_2_4)"

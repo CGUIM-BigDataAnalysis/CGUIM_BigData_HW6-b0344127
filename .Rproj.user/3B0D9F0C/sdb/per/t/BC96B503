@@ -1,0 +1,29 @@
+{
+    "collab_server" : "",
+    "contents" : "",
+    "created" : 1496163628650.000,
+    "dirty" : false,
+    "encoding" : "",
+    "folds" : "",
+    "hash" : "0",
+    "id" : "BC96B503",
+    "lastKnownWriteTime" : 7142772918661947424,
+    "last_content_update" : 1496163628650,
+    "path" : null,
+    "project_path" : null,
+    "properties" : {
+        "cacheKey" : "4E1C4A6B",
+        "caption" : "Finance_RPT_02_2_3",
+        "contentUrl" : "grid_resource/gridviewer.html?env=&obj=Finance_RPT_02_2_3&cache_key=4E1C4A6B",
+        "displayedObservations" : "444",
+        "environment" : "",
+        "object" : "Finance_RPT_02_2_3",
+        "preview" : "0",
+        "totalObservations" : "444",
+        "variables" : "23"
+    },
+    "relative_order" : 3,
+    "source_on_save" : false,
+    "source_window" : "",
+    "type" : "r_dataframe"
+}

@@ -1,0 +1,28 @@
+"0","library(ggplot2)
+"
+"2","Warning messages:
+"
+"2","1: "
+"2","In grepl(""|||"", what, fixed = TRUE) :"
+"2","
+ "
+"2"," input string 1 is invalid in this locale
+"
+"2","2: "
+"2","In grepl(""\n"", lines, fixed = TRUE) :"
+"2","
+ "
+"2"," input string 1 is invalid in this locale
+"
+"2","3: "
+"2","In strsplit(code, ""\n"", fixed = TRUE) :"
+"2","
+ "
+"2"," input string 1 is invalid in this locale
+"
+"0","Finance104<-data.frame(Finance1[grepl(""104"",Finance1$學年度),])"
+"0","ggplot(Finance104, aes(學雜費收入,學校名稱)) + "
+"0","    geom_tile(aes(fill = 學雜費收入),"
+"0","              colour = ""white"")+ "
+"0","    scale_fill_gradient("
+"0","        low = ""white"",high = ""steelblue"") "

@@ -1,0 +1,15 @@
+"0","library(dplyr)"
+"2","Warning message:
+"
+"2","In strsplit(code, ""\n"", fixed = TRUE) :"
+"2","
+ "
+"2"," input string 1 is invalid in this locale
+"
+"0","Finance<-data.frame("
+"0","  inner_join(Finance_RPT_02_2_2,Finance_RPT_02_2_3,Finance_RPT_02_2_4,by=c(""學年度"",""學校代碼"",""學校名稱""))"
+"0","  )"
+"0","library(reshape2)"
+"0","Finance1<-Finance_RPT_02_2_2[1:4]"
+"0","Finance1$學雜費收入<-as.numeric(Finance1$學雜費收入)"
+"2","NAs introduced by coercion"

@@ -1,0 +1,29 @@
+{
+    "collab_server" : "",
+    "contents" : "",
+    "created" : 1497777624353.000,
+    "dirty" : false,
+    "encoding" : "",
+    "folds" : "",
+    "hash" : "0",
+    "id" : "1480DB19",
+    "lastKnownWriteTime" : 7308604914264011873,
+    "last_content_update" : 1497777624353,
+    "path" : null,
+    "project_path" : null,
+    "properties" : {
+        "cacheKey" : "F2AD7CE",
+        "caption" : "X104FINANCE",
+        "contentUrl" : "grid_resource/gridviewer.html?env=&obj=X104FINANCE&cache_key=F2AD7CE",
+        "displayedObservations" : 77,
+        "environment" : "",
+        "object" : "X104FINANCE",
+        "preview" : 0,
+        "totalObservations" : 77,
+        "variables" : 3
+    },
+    "relative_order" : 6,
+    "source_on_save" : false,
+    "source_window" : "",
+    "type" : "r_dataframe"
+}

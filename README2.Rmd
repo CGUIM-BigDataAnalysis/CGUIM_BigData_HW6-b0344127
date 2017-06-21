@@ -1,0 +1,345 @@
+---
+title: "長庚大學與私立大專校院學校收支比較"
+output: github_document
+ ---
+
+##分析動機
+
+學雜費到底是否該漲價?
+大家知道學校為何要漲價嗎?
+大家知道學校的收支情形嗎?
+大家知道學校有資訊公開平台嗎?
+
+做這個議題主要的原因是幫助大家了解學校的財務狀況。因為從去年學生會做的調查結果可以發現，很多人都不會主動積極了解學校為什麼會漲價，通常是因為有同學在講才會知道，說明會也很少人去參與，我覺得就算你的想法是不管怎樣都不想漲價，也應該要主動去了解學校這麼做的原因，最好是能參與討論找出問題的癥結點，才是最好的辦法。
+
+##分析背景
+
+學雜費調漲的依據是由教育部來每年根據物價指數年增率、平均每人可支配所得、薪資成長來決定調漲的幅度，接著再交由學校來自行決定是否要調漲，而要調漲的學校須符合《專科以上學校學雜費收取辦法》、完成資訊公開、研議公開之校內程序。
+
+各項經常支出(含人事費、獎學金、維護費等)
+各項資本支出(含圖書、建築、動產、不動產等)
+
+##資料來源
+
+- 政府資料開放平台:
+私立大專校院學校各項收入情形
+私立大專校院學校各項經常支出情形
+私立大專校院學校各項資本支出情形
+
+- 長庚大學:
+會計室
+學雜費調整資訊公告專區
+校務與財務資訊公開專區
+
+- 其他資訊參考資料:
+教育部、學生會...等。
+
+##資料格式
+
+我都鎖定在"私立大專校院學校"，
+並且這些資料的時間都相同(101~104學年度)
+
+##分析議題
+
+分析議題主要分成三大類:
+
+1.校內各學年度學雜費、
+其他學校學雜費比較
+
+2.校內支出主要項目、
+其他學校支出主要項目比較
+
+3.校內收入來源、
+其他學校收入來源比較
+
+##假設
+
+我已長庚大學所提出的學雜費調漲的原因來做假設。
+1.本校之學雜費較其他私立大專院校之學雜費低
+2.本校學雜費用於支付與學生學習相關經費用不足
+
+##分析結果過程
+
+## 資料載入
+
+```{r}
+library(readxl)
+Finance_RPT_02_2_2 <- read_excel("C:/Users/JHIH-CHEN/Downloads/university/Finance_RPT_02_2_2.xlsx")
+Finance_RPT_02_2_3 <- read_excel("C:/Users/JHIH-CHEN/Downloads/university/Finance_RPT_02_2_3.xlsx")
+Finance_RPT_02_2_4 <- read_excel("C:/Users/JHIH-CHEN/Downloads/university/Finance_RPT_02_2_4.xlsx")
+Finance_RPT_02_2_3_104 <- read_excel("C:/Users/JHIH-CHEN/Downloads/university/Finance_RPT_02_2_3_104.xlsx")
+Finance_RPT_02_2_2_104 <- read_excel("C:/Users/JHIH-CHEN/Downloads/university/Finance_RPT_02_2_2_104.xlsx")
+Finance_RPT_02_2_3_104_<- read_excel("C:/Users/JHIH-CHEN/Downloads/university/Finance_RPT_02_2_3_104%.xlsx")
+X104_cgu_income <- read_excel("C:/Users/JHIH-CHEN/Downloads/university/104_cgu_income.xlsx")
+cgu_outcome <- read_excel("C:/Users/JHIH-CHEN/Downloads/university/cgu_outcome.xlsx")
+X104FINANCE <- read_excel("~/GitHub/CGUIM_BigData_FINAL-B0344127/104FINANCE.xlsx")
+
+```
+## 合併資料
+
+```{r}
+library(dplyr)
+Finance<-data.frame(
+  inner_join(Finance_RPT_02_2_2,Finance_RPT_02_2_3,Finance_RPT_02_2_4,by=c("學年度","學校代碼","學校名稱"))
+  )
+
+Finance1<-Finance_RPT_02_2_2[1:4]
+Finance1$學雜費收入<-as.numeric(Finance1$學雜費收入)
+
+library(reshape2)
+Finance_RPT_02_2_3_104.1<-melt(Finance_RPT_02_2_3_104,id.vars = c("學校名稱"))
+#Finance_104_2.31<-data.frame(
+#  inner_join(Finance_RPT_02_2_2_104,Finance_RPT_02_2_3_104.1,by=c("學校代碼","學校名稱"))
+#)
+```
+##  資料處理與清洗
+
+```{r}
+library(dplyr)
+Finance<-data.frame(
+  inner_join(Finance_RPT_02_2_2,Finance_RPT_02_2_3,Finance_RPT_02_2_4,by=c("學年度","學校代碼","學校名稱"))
+  )
+library(reshape2)
+Finance1<-Finance_RPT_02_2_2[1:4]
+Finance1$學雜費收入<-as.numeric(Finance1$學雜費收入)
+cgu1<-data.frame(Finance1[grepl("長庚大學",Finance1$學校名稱),])#篩選出長庚大學的資料
+Finance_RPT_02_2_4$total<-as.numeric(Finance_RPT_02_2_4$`合計(各項資本支出情形(單位:千元))`)
+
+Finance_RPT_02_2_2_104.1<-melt(Finance_RPT_02_2_2_104,id.vars = c("學年度","學校代碼","學校名稱"))
+Finance_RPT_02_2_2_104.1<-Finance_RPT_02_2_2_104.1[,3:5]
+
+```
+## 分析結果1.1-學雜費收入趨勢之比較
+
+目的:觀察各學校學雜費趨勢
+
+結果:變動幅度不夠大，無明顯差異
+
+- 各私立大專院校101~104學年度學雜費收入折線圖
+```{r}
+#install.packages("ggplot2")
+library(ggplot2)
+ggplot(Finance1, 
+       aes(x = 學年度, 
+           y = 學雜費收入,
+           color=學校代碼)) + 
+  geom_line()
+
+#註:長庚大學學校代碼為1009
+```
+
+- 私立大專校院學校101~104學年度學雜費收入Heatmap
+
+```{r}
+
+ggplot(Finance1, aes(學年度,學校名稱)) + 
+  geom_tile(aes(fill = 學雜費收入),
+            colour = "white")+ 
+  scale_fill_gradient(
+    low = "white",high = "steelblue") 
+
+#註:灰色部分因該學校經費統計有疑慮，故無資料
+```
+
+- 私立大專校院學校101~104學年度學雜費收入散部圖(-->做完後發現無異議)
+
+```{r}
+  ggplot(Finance1, 
+         aes(x = 學校代碼, 
+             y = 學雜費收入)) + 
+  geom_point()+facet_grid(學年度~.)+
+  geom_smooth(method='lm')#因為各校學雜費收入過於分散，所以畫不出趨勢線
+```
+##分析結果1.2-學雜費收入比較
+
+目的:觀察104學年度各學校學院學雜費費用比較
+
+結果:由以下兩圖，可發現長庚大學各學院的學雜費確實比其他私立學校低(紅線部分為長庚大學)。另外，由樹狀圖與圓餅圖觀察發現長庚跟其他學校不同，收入來源主要是產學合作，可能跟台塑集團能提供較多產學合作有關。
+
+- 104學年度私立大專院校各學院學雜費散部圖(紅線部分為長庚大學)
+```{r}
+ggplot(X104FINANCE, 
+       aes(x = 校名, 
+           y = 學費金額,colour = 校名)) + 
+  geom_point(size = 3)+facet_grid(院別~.)+
+  geom_smooth(method='lm')+
+  geom_line(aes(x = "長庚大學"),color="red")
+```
+
+- 104學年度私立大專院校各學院學雜費折線圖(紅線部分為長庚大學)
+
+```{r}
+ggplot(X104FINANCE, aes(x = 校名, y =學費金額 , colour = 院別)) + 
+  geom_line() + 
+  geom_point(shape = 15, size = 5, fill = "white") +
+  geom_line(aes(x = "長庚大學"),color="red")
+```
+
+- 104學年度私立大專校院學校各項經常收入情形樹狀圖(為方便檢視，分兩種形式)
+
+```{r}
+#install.packages("treemap")
+library(treemap)
+treeMap2<-treemap(Finance_RPT_02_2_2_104.1,
+        index=c("variable", "學校名稱"), #分組依據
+        vSize="value", #區塊大小
+        vColor="value", #顏色深淺
+        type="value")
+treemap(Finance_RPT_02_2_2_104.1,
+        index=c("學校名稱", "variable"), #分組依據
+        vSize="value", #區塊大小
+        vColor="value", #顏色深淺
+        type="value")
+
+```
+
+- 104學年度私立大專校院學校各項經常支出情形圓餅圖(為方便檢視)
+
+```{r}
+#104學年度長庚大學各項收入情形圓餅圖
+cgu_2_2_104_1<-melt(X104_cgu_income,id.vars = c("學年度","學校代碼","學校名稱"))
+ggplot(data=cgu_2_2_104_1) +
+  # 先畫bar plot
+  geom_bar(aes(x=factor(1),
+               y=value,
+               fill=variable),
+           stat = "identity") +
+  # 再沿著Y，轉軸成圓餅圖
+  coord_polar("y", start=0)
+
+```
+
+##分析結果2-長庚大學與其他私立大專校院學校支出之比較
+
+目的:比較101~104學年度長庚大學與其他私立大專校院學校的支出差異
+
+結果:發現長庚大學的經常性支出較其他學校高-->最高點是因為減資使投資部分的支出增高。另外，從樹狀圖及圓餅圖可發現長庚跟大多學校的支出最多的在於人事費。
+
+
+- 私立大專校院學校各項資本支出情形(紅線部分為長庚大學)
+
+```{r}
+ggplot(Finance_RPT_02_2_4, aes(x = 學校名稱, y =total )) + geom_line() + 
+  geom_point(size = 3, shape = 22, colour = "darkred", fill = "orange") + ylim(50, max(Finance_RPT_02_2_4$total)) +
+  geom_point(aes(x ="長庚大學" ,y=268507),size = 5, color="red", fill = "red")
+```
+
+- 私立大專校院學校各項經常支出情形(紅線部分為長庚大學)
+
+```{r}
+ggplot(Finance_RPT_02_2_3, aes(x = 學校名稱, y =`合計(學校各項經常支出情形(單位:千元))`)) + geom_line() + 
+ geom_point(size = 3, shape = 18, colour = "brown") + 
+ # ylim(50, max(Finance_RPT_02_2_3$`合計(學校各項經常支出情形(單位:千元))`))+
+  geom_point(aes(x ="長庚大學" ,y=3669365),size = 5, color="red", fill = "red")
+
+```
+
+- 104學年度私立大專校院學校各項經常支出情形樹狀圖(為方便檢視，分兩種形式)
+
+```{r}
+#install.packages("treemap")
+library(treemap)
+treemap(Finance_RPT_02_2_3_104.1,
+        index=c("學校名稱", "variable"), #分組依據
+        vSize="value", #區塊大小
+        vColor="value", #顏色深淺
+        type="value")
+
+treemap(Finance_RPT_02_2_3_104.1,
+        index=c("variable","學校名稱" ), #分組依據
+        vSize="value", #區塊大小
+        vColor="value", #顏色深淺
+        type="value")
+
+#104學年度長庚大學各項經常支出情形圓餅圖
+cgu_2_3_104_1<-melt(Finance_RPT_02_2_3_104_,id.vars = c("學年度","學校代碼","學校名稱"))
+ggplot(data=cgu_2_3_104_1) +
+    # 先畫bar plot
+  geom_bar(aes(x=factor(1),
+               y=value,
+               fill=variable),
+           stat = "identity") +
+  # 再沿著Y，轉軸成圓餅圖
+  coord_polar("y", start=0)
+
+
+```
+
+- 104學年度長庚大學各項經常支出情形圓餅圖(為方便檢視)
+
+```{r}
+cgu_2_3_104_1<-melt(Finance_RPT_02_2_3_104_,id.vars = c("學年度","學校代碼","學校名稱"))
+ggplot(data=cgu_2_3_104_1) +
+    # 先畫bar plot
+  geom_bar(aes(x=factor(1),
+               y=value,
+               fill=variable),
+           stat = "identity") +
+  # 再沿著Y，轉軸成圓餅圖
+  coord_polar("y", start=0)
+
+```
+
+##分析結果3-長庚大學本身之收支
+
+目的:學雜費用於支付與學生學習相關經費用不足。
+
+結果:收入可以發現因為人數的減少，會跟著遞減；支出圖變動性不大；比對收入和支出圖後仔細一看發現光是經常性支出的價格遠遠大於學雜費收入。
+
+- 101-104學年度學雜費收入折線圖1
+
+```{r}
+ggplot(cgu1, aes(x = 學年度, y = 學雜費收入)) + geom_line() + geom_point()+ 
+  geom_point(size = 4, shape = 22, colour = "darkred", fill = "pink") + ylim(50, max(cgu1$學雜費收入))
+```
+
+- 101-104學年度學雜費收入折線圖2
+
+```{r}
+ggplot(cgu1, aes(x = 學年度, y = 學雜費收入)) + geom_line() + geom_point()+ 
+  geom_point(size = 4, shape = 22, colour = "darkred", fill = "brown")
+
+```
+
+- 101-104學年度學校各項經常支出折線圖
+
+```{r}
+ggplot(cgu_outcome, aes(x = 學年度, y = `合計(學校各項經常支出情形(單位:千元))`)) + geom_line() + geom_point()+ 
+  geom_point(size = 4, shape = 22, colour = "darkred", fill = "pink") + ylim(50, max(cgu_outcome$`合計(學校各項經常支出情形(單位:千元))`))   
+```
+
+以下為原本想做，但革命尚未成功之程式碼package
+
+```{r}
+#install.packages("devtools")
+#library(devtools)
+#install_github("wilkox/ggfittext")
+#install_github("wilkox/treemapify") 
+```
+
+
+##總結論—
+
+依據以上結果，兩個假設成立，所以依學校的立場來說，漲學雜費是合理的。
+
+##預計解決之問題-
+
+讓大家更了解學校之財務狀況，並了解學校漲價的原因。
+
+##補充探討--學生為何會反對?
+
+1.沒把錢用在學生在意的地方-
+獎助金的增額
+獎學金減少
+助教名額刪減
+2.資訊不對稱
+學校資訊不夠公開
+學生不夠積極
+
+##遇到的困難--
+
+首先，要找到RAW DATA是非常困難的，一開始總是有非常多的想法，但往往因為找不到自己所要的原始資料而放棄，像是我一開始打算做憂鬱症的相關分析，但政府資訊公開平台卻叫我們要自己去申請!!!解決辦法就是靠運氣找資料，我想了10個以上的議題才讓我順利找到我需要的資料。
+
+第二個困難是很多資料格式都特別醜，像是有pdf檔的或是不同的資料表放在同張表格裡，解決方法就是放棄他找其他資料，不然都要選擇另外處理。
+
+最後，是圖表呈現的問題，我本來有超多想法的，但是因為有種種技術上、學術上的問題，例如:統計，我本來以為我統計很好，但實際做表格後，發現觀念搞混了!總之，因為以上個人的問題，導致我理想圖表未順利在報告前完成。

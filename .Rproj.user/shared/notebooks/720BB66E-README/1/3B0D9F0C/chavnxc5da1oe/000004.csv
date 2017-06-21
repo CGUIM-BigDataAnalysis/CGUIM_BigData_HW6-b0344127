@@ -1,0 +1,13 @@
+"0","Finance_RPT_104 <- read_excel(""C:/Users/JHIH-CHEN/Documents/GitHub/CGUIM_BigData_FINAL-B0344127/104學年度各私立大專院校學雜費收費標準.xlsx"")
+"
+"2","Error in read_excel(""C:/Users/JHIH-CHEN/Documents/GitHub/CGUIM_BigData_FINAL-B0344127/104學年度各私立大專院校學雜費收費標準.xlsx"") : 
+  could not find function ""read_excel""
+"
+"2","In addition: "
+"2","Warning message:
+"
+"2","In strsplit(code, ""\n"", fixed = TRUE) :"
+"2","
+ "
+"2"," input string 1 is invalid in this locale
+"
